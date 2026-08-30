@@ -40,7 +40,10 @@ export function PortfolioShell() {
   useEffect(() => {
     const onScroll = () => setShowTop(window.scrollY > 520)
     onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('scroll', onScroll, { passive: true }) <section id="about" className="about section-wrap **animate-fadeIn**">
+      <section id="work" className="work section-wrap **animate-fadeIn**">
+        <div className="work-grid **animate-fadeIn-stagger**">
+          <section id="contact" className="contact-section section-wrap **animate-fadeIn**">
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
   const backToTop = <button className={`back-to-top${showTop ? ' is-visible' : ''}`} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Back to top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" /></svg></button>
