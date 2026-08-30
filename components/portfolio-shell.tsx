@@ -116,38 +116,28 @@ export function PortfolioShell() {
   const [showTop, setShowTop] = useState(false)
   
   // 👇 NUEVO: Intersection Observer para fade-in al scroll
-  useEffect(() => {
-    const sections = document.querySelectorAll('.fade-section')
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible')
-        }
-      })
-    }, {
-      threshold: 0.15,
-      rootMargin: '0px 0px -50px 0px'
+    useEffect(() => {
+  const sections = document.querySelectorAll('.fade-section')
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible')
+      } else {
+        entry.target.classList.remove('is-visible') // 👈 ESTA LÍNEA ES LA CLAVE
+      }
     })
-    
-    sections.forEach(section => observer.observe(section))
-    
-    return () => {
-      sections.forEach(section => observer.unobserve(section))
-    }
-  }, [])
+  }, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -50px 0px'
+  })
   
-  useEffect(() => {
-    if (page === 'case') window.scrollTo({ top: 0, behavior: 'instant' })
-  }, [page])
+  sections.forEach(section => observer.observe(section))
   
-  useEffect(() => {
-    const onScroll = () => setShowTop(window.scrollY > 520)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-  
+  return () => {
+    sections.forEach(section => observer.unobserve(section))
+  }
+}, [])
   const backToTop = (
     <button 
       className={`back-to-top${showTop ? ' is-visible' : ''}`} 
