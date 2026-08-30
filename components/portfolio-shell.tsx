@@ -1,13 +1,14 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { projectsData } from './ui/projectsData'
 
 // ============================================================
-// 1. IMÁGENES Y ENLACES (editá acá las URLs)
+// 1. IMÁGENES Y ENLACES VIEJOS (editá acá las URLs)
 // ============================================================
-const portrait = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%2022%20jun%202026%2C%2020_24_33-2J198kGWZfIDkoqCfS3yxwXGKzsONL.png'
-const collage = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Group%2013-4RCyDrsgiNnQc5mDQGCDvs13sxADYG.png'
-const pexelsWorkspace = 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1400'
+//const portrait = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%2022%20jun%202026%2C%2020_24_33-2J198kGWZfIDkoqCfS3yxwXGKzsONL.png'
+//const collage = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Group%2013-4RCyDrsgiNnQc5mDQGCDvs13sxADYG.png'
+//const pexelsWorkspace = 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1400'
 
 // ============================================================
 // 2. REDES Y CONTACTO (editá acá los enlaces)
@@ -60,7 +61,7 @@ function CaseStudy({ onBack }: { onBack: () => void }) {
       <p className="eyebrow">UX/UI CASE STUDY / 2023</p>
       <h1>Experta App<br /><em>Redesign.</em></h1>
       <p className="case-lede">Redesigning a mobile insurance experience to make it simpler, faster, and more accessible.</p>
-      <img className="case-hero-image" src={collage} alt="Experta App redesign presentation" />
+      <img className="case-hero-image" src={projectsData.project1.image} alt="Experta App redesign presentation" />
       
       <section className="case-grid">
         <div>
@@ -89,7 +90,7 @@ function CaseStudy({ onBack }: { onBack: () => void }) {
         </div>
       </section>
       
-      <img className="case-detail-image" src={pexelsWorkspace} alt="Design team collaborating around a table" />
+      <img className="case-detail-image" src={projectsData.project2.image} alt="Design team collaborating around a table" />
       
       <section className="case-grid case-impact">
         <div>
@@ -270,7 +271,7 @@ export function PortfolioShell() {
             </a>
           </div>
           <div className="about-card">
-            <img src={portrait} alt="Ingrid Hansen holding coffee" />
+            <img src={projectsData.aboutPhoto} alt="Ingrid Hansen holding coffee" />
           </div>
         </div>
       </section>
@@ -286,7 +287,7 @@ export function PortfolioShell() {
         </div>
         <div className="work-grid">
           <article className="work-card work-card-featured" role="link" tabIndex={0} onClick={() => setPage('case')} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setPage('case') } }}>
-            <img src={collage} alt="Experta App redesign screens" />
+            <img src={projectsData.project1.image} alt="Experta App redesign screens" />
             <div className="work-card-body">
               <p className="project-type">Featured case study</p>
               <h3>Experta App<br /><em>Redesign</em></h3>
@@ -294,7 +295,7 @@ export function PortfolioShell() {
             </div>
           </article>
           <article className="work-card">
-            <img src={pexelsWorkspace} alt="Product design team workshop" />
+            <img src={projectsData.project2.image} alt="Product design team workshop" />
             <div className="work-card-body">
               <p className="project-type">Product design</p>
               <h3>Systems that<br /><em>connect.</em></h3>
@@ -303,7 +304,7 @@ export function PortfolioShell() {
             </div>
           </article>
           <article className="work-card">
-            <img src={portrait} alt="Editorial portrait of Ingrid Hansen" />
+            <img src={projectsData.project3.image} alt="Editorial portrait of Ingrid Hansen" />
             <div className="work-card-body">
               <p className="project-type">UX research</p>
               <h3>Closer to<br /><em>people.</em></h3>
