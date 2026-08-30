@@ -34,28 +34,125 @@ function CaseStudy({ onBack }: { onBack: () => void }) {
 export function PortfolioShell() {
   const [page, setPage] = useState<'home' | 'case'>('home')
   const [showTop, setShowTop] = useState(false)
+  
   useEffect(() => {
     if (page === 'case') window.scrollTo({ top: 0, behavior: 'instant' })
   }, [page])
+  
   useEffect(() => {
     const onScroll = () => setShowTop(window.scrollY > 520)
     onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true }) <section id="about" className="about section-wrap animate-fadeIn">
-      <section id="work" className="work section-wrap animate-fadeIn">
-        <div className="work-grid animate-fadeIn-stagger">
-          <section id="contact" className="contact-section section-wrap animate-fadeIn">
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
-  const backToTop = <button className={`back-to-top${showTop ? ' is-visible' : ''}`} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Back to top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" /></svg></button>
+  
+  const backToTop = (
+    <button className={`back-to-top${showTop ? ' is-visible' : ''}`} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Back to top">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" /></svg>
+    </button>
+  )
+  
   if (page === 'case') return <><CaseStudy onBack={() => setPage('home')} />{backToTop}</>
-  return <main>
-    <header className="site-header"><a className="wordmark" href="https://www.linkedin.com/in/ingrid-hansen-382298120" target="_blank" rel="noreferrer">Ingrid Hansen</a><nav><a className="nav-active" href="#home">Home</a><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></nav></header>
-    <section id="home" className="hero section-wrap"><div className="hero-copy"><p className="eyebrow"> DIGITAL PRODUCT DESIGN · UX/UI · AI · SYSTEMS <span>— BUENOS AIRES, ARGENTINA / REMOTE</span></p><h1>From complexity<br /><em>TO CLARITY</em></h1><p className="hero-intro"></p><p className="highlight">B2B SAAS · WEB PRODUCTS · AI · STARTUPS</p><p className="available"> ● OPEN TO PRODUCT DESIGN ROLES & FREELANCE PROJECTS</p><div className="hero-keywords"></div></div></section>
-    <Ticker />
-    <section id="about" className="about section-wrap"><p className="section-label">01 / ABOUT</p><div className="about-grid"><div><h2>Hello, I&apos;m<br /><em>Ingrid.</em></h2><p className="mono-copy">This past year, I've been experimenting with AI to reshape how I design from research to systems. Bootcamps, blockchain challenges, and Data Analytics have been part of the process. I'm currently focused on Framer, Figma make, Claude design and v0, design systems, and web design with an AI-first mindset. I approach design as a constantly evolving laboratory. Always exploring how technology can connect with real human needs.</p><a className="back-link about-link" href="https://www.linkedin.com/in/ingrid-hansen-382298120" target="_blank" rel="noreferrer">More about me ↗</a></div><div className="about-card"><img src={portrait} alt="Ingrid Hansen holding coffee" /></div></div></section>
-    <section id="work" className="work section-wrap"><p className="section-label">02 / SELECTED WORK</p><div className="section-heading"><h2>Ideas that<br /><em>took shape.</em></h2><p>Case studies, learnings, and recent obsessions.</p></div><div className="work-grid"><article className="work-card work-card-featured" role="link" tabIndex={0} onClick={() => setPage('case')} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setPage('case') } }}><img src={collage} alt="Experta App redesign screens" /><div className="work-card-body"><p className="project-type">Featured case study</p><h3>Experta App<br /><em>Redesign</em></h3><p>From complexity to confidence: a clearer insurance experience for real people.</p></div></article><article className="work-card"><img src={pexelsWorkspace} alt="Product design team workshop" /><div className="work-card-body"><p className="project-type">Product design</p><h3>Systems that<br /><em>connect.</em></h3><p>Turning scattered needs into a shared, usable direction.</p><a className="case-button" href="#contact">Discuss a project ↗</a></div></article><article className="work-card"><img src={portrait} alt="Editorial portrait of Ingrid Hansen" /><div className="work-card-body"><p className="project-type">UX research</p><h3>Closer to<br /><em>people.</em></h3><p>Research-led decisions for experiences that feel clear.</p><a className="case-button" href="#about">Read my approach ↗</a></div></article></div></section>
-    <section id="contact" className="contact-section section-wrap"><p className="section-label">03 / CONTACT</p><div className="contact-heading"><h2>Let&apos;s make<br /><em>something useful.</em></h2><p>Pick whatever works for you. I reply fast.</p></div><div className="contact-links-grid">{contactLinks.map(([label, href]) => <a key={label} href={href} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noreferrer' : undefined}><span>{label}</span><b>↗</b></a>)}</div></section>
-    <footer><strong>Ingrid Hansen</strong><span>Product & UX Designer</span><a href="https://www.linkedin.com/in/ingrid-hansen-382298120" target="_blank" rel="noreferrer">LinkedIn ↗</a><small>© 2026</small></footer>
-    {backToTop}
-  </main>
+  
+  return (
+    <main>
+      <header className="site-header">
+        <a className="wordmark" href="https://www.linkedin.com/in/ingrid-hansen-382298120" target="_blank" rel="noreferrer">Ingrid Hansen</a>
+        <nav>
+          <a className="nav-active" href="#home">Home</a>
+          <a href="#work">Work</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
+      
+      <section id="home" className="hero section-wrap">
+        <div className="hero-copy">
+          <p className="eyebrow">DIGITAL PRODUCT DESIGN · UX/UI · AI · SYSTEMS <span>— BUENOS AIRES, ARGENTINA / REMOTE</span></p>
+          <h1>From complexity<br /><em>TO CLARITY</em></h1>
+          <p className="hero-intro"></p>
+          <p className="highlight">B2B SAAS · WEB PRODUCTS · AI · STARTUPS</p>
+          <p className="available">● OPEN TO PRODUCT DESIGN ROLES & FREELANCE PROJECTS</p>
+          <div className="hero-keywords"></div>
+        </div>
+      </section>
+      
+      <Ticker />
+      
+      <section id="about" className="about section-wrap animate-fadeIn">
+        <p className="section-label">01 / ABOUT</p>
+        <div className="about-grid">
+          <div>
+            <h2>Hello, I&apos;m<br /><em>Ingrid.</em></h2>
+            <p className="mono-copy">This past year, I've been experimenting with AI to reshape how I design — from research to systems. Bootcamps, blockchain challenges, and Data Analytics have been part of the process. I'm currently focused on Framer, Figma, Claude, v0, design systems, and web design with an AI-first mindset. I approach design as a constantly evolving laboratory, always exploring how technology can connect with real human needs.</p>
+            <a className="back-link about-link" href="https://www.linkedin.com/in/ingrid-hansen-382298120" target="_blank" rel="noreferrer">More about me ↗</a>
+          </div>
+          <div className="about-card">
+            <img src={portrait} alt="Ingrid Hansen holding coffee" />
+          </div>
+        </div>
+      </section>
+      
+      <section id="work" className="work section-wrap animate-fadeIn">
+        <p className="section-label">02 / SELECTED WORK</p>
+        <div className="section-heading">
+          <h2>Ideas that<br /><em>took shape.</em></h2>
+          <p>Case studies, learnings, and recent obsessions.</p>
+        </div>
+        <div className="work-grid animate-fadeIn-stagger">
+          <article className="work-card work-card-featured" role="link" tabIndex={0} onClick={() => setPage('case')} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setPage('case') } }}>
+            <img src={collage} alt="Experta App redesign screens" />
+            <div className="work-card-body">
+              <p className="project-type">Featured case study</p>
+              <h3>Experta App<br /><em>Redesign</em></h3>
+              <p>From complexity to confidence: a clearer insurance experience for real people.</p>
+            </div>
+          </article>
+          <article className="work-card">
+            <img src={pexelsWorkspace} alt="Product design team workshop" />
+            <div className="work-card-body">
+              <p className="project-type">Product design</p>
+              <h3>Systems that<br /><em>connect.</em></h3>
+              <p>Turning scattered needs into a shared, usable direction.</p>
+              <a className="case-button" href="#contact">Discuss a project ↗</a>
+            </div>
+          </article>
+          <article className="work-card">
+            <img src={portrait} alt="Editorial portrait of Ingrid Hansen" />
+            <div className="work-card-body">
+              <p className="project-type">UX research</p>
+              <h3>Closer to<br /><em>people.</em></h3>
+              <p>Research-led decisions for experiences that feel clear.</p>
+              <a className="case-button" href="#about">Read my approach ↗</a>
+            </div>
+          </article>
+        </div>
+      </section>
+      
+      <section id="contact" className="contact-section section-wrap animate-fadeIn">
+        <p className="section-label">03 / CONTACT</p>
+        <div className="contact-heading">
+          <h2>Let&apos;s make<br /><em>something useful.</em></h2>
+          <p>Pick whatever works for you. I reply fast.</p>
+        </div>
+        <div className="contact-links-grid">
+          {contactLinks.map(([label, href]) => (
+            <a key={label} href={href} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noreferrer' : undefined}>
+              <span>{label}</span>
+              <b>↗</b>
+            </a>
+          ))}
+        </div>
+      </section>
+      
+      <footer>
+        <strong>Ingrid Hansen</strong>
+        <span>Product & UX Designer</span>
+        <a href="https://www.linkedin.com/in/ingrid-hansen-382298120" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+        <small>© 2026</small>
+      </footer>
+      
+      {backToTop}
+    </main>
+  )
 }
