@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useState, useEffect } from 'react'
 
 // ============================================================
 // 1. IMÁGENES Y ENLACES (editá acá las URLs)
@@ -51,7 +51,7 @@ function Ticker() {
 }
 
 // ============================================================
-// 5. CASO DE ESTUDIO (componente interno - no tocar)
+// 5. CASO DE ESTUDIO (no tocar)
 // ============================================================
 function CaseStudy({ onBack }: { onBack: () => void }) {
   return (
@@ -109,15 +109,16 @@ function CaseStudy({ onBack }: { onBack: () => void }) {
 }
 
 // ============================================================
-// 6. COMPONENTE PRINCIPAL (editá acá los textos de la landing)
+// 6. COMPONENTE PRINCIPAL
 // ============================================================
 export function PortfolioShell() {
   const [page, setPage] = useState<'home' | 'case'>('home')
   const [showTop, setShowTop] = useState(false)
   
-  // 1. EFECTO PARA EL FADE-IN AL SCROLL
+  // Efecto para el fade-in al hacer scroll
   useEffect(() => {
     const sections = document.querySelectorAll('.fade-section')
+    
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -130,32 +131,43 @@ export function PortfolioShell() {
       threshold: 0.15,
       rootMargin: '0px 0px -50px 0px'
     })
+    
     sections.forEach(section => observer.observe(section))
+    
     return () => {
       sections.forEach(section => observer.unobserve(section))
     }
   }, [])
   
-  // 2. EFECTO PARA EL BOTÓN "BACK TO TOP" (¡ESTE ES EL QUE FALTABA!)
+  // Efecto para mostrar el botón "Back to Top" al scrollear
   useEffect(() => {
     const onScroll = () => {
-      setShowTop(window.scrollY > 100) // Aparece después de 100px
+      setShowTop(window.scrollY > 100)
     }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
   
-  // 3. EFECTO PARA EL CASO DE ESTUDIO (ya lo tenés)
+  // Efecto para el caso de estudio
   useEffect(() => {
     if (page === 'case') window.scrollTo({ top: 0, behavior: 'instant' })
   }, [page])
   
-  const backToTop = ( ... )
-  // ...
-}
+  // Botón "Back to Top"
+  const backToTop = (
+    <button 
+      className={`back-to-top${showTop ? ' is-visible' : ''}`} 
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
+      aria-label="Back to top"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 19V5M6 11l6-6 6 6" />
+      </svg>
+    </button>
+  )
   
-  
+  if (page === 'case') return <><CaseStudy onBack={() => setPage('home')} />{backToTop}</>
   
   // ============================================================
   // 6a. TEXTO DEL HERO (editá acá)
@@ -226,7 +238,7 @@ export function PortfolioShell() {
         </nav>
       </header>
       
-      {/* ===== HERO (sin animación) ===== */}
+      {/* ===== HERO ===== */}
       <section id="home" className="hero section-wrap">
         <div className="hero-copy">
           <p className="eyebrow">
@@ -244,7 +256,7 @@ export function PortfolioShell() {
       
       <Ticker />
       
-      {/* ===== ABOUT (con fade al hacer scroll) ===== */}
+      {/* ===== ABOUT ===== */}
       <section id="about" className="about section-wrap fade-section">
         <p className="section-label">01 / ABOUT</p>
         <div className="about-grid">
@@ -263,7 +275,7 @@ export function PortfolioShell() {
         </div>
       </section>
       
-      {/* ===== WORK (con fade al hacer scroll) ===== */}
+      {/* ===== WORK ===== */}
       <section id="work" className="work section-wrap fade-section">
         <p className="section-label">{workData.label}</p>
         <div className="section-heading">
@@ -302,7 +314,7 @@ export function PortfolioShell() {
         </div>
       </section>
       
-      {/* ===== CONTACT (con fade al hacer scroll) ===== */}
+      {/* ===== CONTACT ===== */}
       <section id="contact" className="contact-section section-wrap fade-section">
         <p className="section-label">{contactData.label}</p>
         <div className="contact-heading">
