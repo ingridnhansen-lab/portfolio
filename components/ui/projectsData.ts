@@ -6,6 +6,9 @@
 // ============================================================
 
 export const projectsData = {
+  
+  aboutImage: 'URL_DE_TU_FOTO_DE_PERFIL',
+  
   project1: {
     image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Group%2013-4RCyDrsgiNnQc5mDQGCDvs13sxADYG.png',
     type: 'Featured case study',
