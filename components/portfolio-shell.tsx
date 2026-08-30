@@ -118,6 +118,8 @@ function CaseStudy({ onBack }: { onBack: () => void }) {
 export function PortfolioShell() {
   const [page, setPage] = useState<'home' | 'case'>('home')
   const [showTop, setShowTop] = useState(false)
+  // 👇 NUEVO: Estado para forzar re-render
+  const [renderKey, setRenderKey] = useState(0)
   
   // Efecto para el fade-in al hacer scroll
   useEffect(() => {
@@ -141,7 +143,7 @@ export function PortfolioShell() {
     return () => {
       sections.forEach(section => observer.unobserve(section))
     }
-  }, [])
+  }, [renderKey]) // 👈 Dependencia para re-ejecutar cuando cambie renderKey
   
   // Efecto para mostrar el botón "Back to Top" al scrollear
   useEffect(() => {
@@ -158,10 +160,12 @@ export function PortfolioShell() {
     if (page === 'case') window.scrollTo({ top: 0, behavior: 'instant' })
   }, [page])
   
-  // 👇 NUEVO: Efecto para reiniciar el scroll al volver al home
+  // 👇 NUEVO: Efecto para reiniciar el scroll y forzar re-render al volver al home
   useEffect(() => {
     if (page === 'home') {
       window.scrollTo({ top: 0, behavior: 'instant' })
+      // Forzar re-render del home cambiando renderKey
+      setRenderKey(prev => prev + 1)
     }
   }, [page])
   
@@ -236,7 +240,7 @@ export function PortfolioShell() {
   // 6. RENDER (no tocar)
   // ============================================================
   return (
-    <main key={page === 'home' ? 'home' : 'case'}>
+    <main key={page === 'home' ? `home-${renderKey}` : 'case'}>
       <header className="site-header">
         <a className="wordmark" href={footerData.linkedinUrl} target="_blank" rel="noreferrer">
           {footerData.name}
