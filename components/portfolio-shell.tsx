@@ -115,42 +115,47 @@ export function PortfolioShell() {
   const [page, setPage] = useState<'home' | 'case'>('home')
   const [showTop, setShowTop] = useState(false)
   
-  // 👇 NUEVO: Intersection Observer para fade-in al scroll
-    useEffect(() => {
-  const sections = document.querySelectorAll('.fade-section')
-  
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible')
-      } else {
-        entry.target.classList.remove('is-visible') // 👈 ESTA LÍNEA ES LA CLAVE
-      }
+  // 1. EFECTO PARA EL FADE-IN AL SCROLL
+  useEffect(() => {
+    const sections = document.querySelectorAll('.fade-section')
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible')
+        } else {
+          entry.target.classList.remove('is-visible')
+        }
+      })
+    }, {
+      threshold: 0.15,
+      rootMargin: '0px 0px -50px 0px'
     })
-  }, {
-    threshold: 0.15,
-    rootMargin: '0px 0px -50px 0px'
-  })
+    sections.forEach(section => observer.observe(section))
+    return () => {
+      sections.forEach(section => observer.unobserve(section))
+    }
+  }, [])
   
-  sections.forEach(section => observer.observe(section))
+  // 2. EFECTO PARA EL BOTÓN "BACK TO TOP" (¡ESTE ES EL QUE FALTABA!)
+  useEffect(() => {
+    const onScroll = () => {
+      setShowTop(window.scrollY > 100) // Aparece después de 100px
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
   
-  return () => {
-    sections.forEach(section => observer.unobserve(section))
-  }
-}, [])
-  const backToTop = (
-    <button 
-      className={`back-to-top${showTop ? ' is-visible' : ''}`} 
-      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
-      aria-label="Back to top"
-    >
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 19V5M6 11l6-6 6 6" />
-      </svg>
-    </button>
-  )
+  // 3. EFECTO PARA EL CASO DE ESTUDIO (ya lo tenés)
+  useEffect(() => {
+    if (page === 'case') window.scrollTo({ top: 0, behavior: 'instant' })
+  }, [page])
   
-  if (page === 'case') return <><CaseStudy onBack={() => setPage('home')} />{backToTop}</>
+  const backToTop = ( ... )
+  // ...
+}
+  
+  
   
   // ============================================================
   // 6a. TEXTO DEL HERO (editá acá)
