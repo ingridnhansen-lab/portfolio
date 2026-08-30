@@ -3,10 +3,8 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'I TURN COMPLEX PROBLEMS INTO DIGITAL PRODUCTS',
-  //'Ingrid Hansen — Product & UX Designer',
-  description: 'I combine research, product thinking, UX/UI and visual craft to turn complex challenges into clear digital experiences. I approach design as a constantly evolving laboratory, exploring AI, emerging technologies and connections across disciplines.',
-    //'Diseño experiencias digitales centradas en las personas, que resuelven problemas reales y generan impacto.',
+  title: 'Ingrid Hansen — Product & UX Designer',
+  description: 'Diseño experiencias digitales centradas en las personas, que resuelven problemas reales y generan impacto.',
   generator: 'v0.app',
   icons: {
     icon: [
