@@ -4,14 +4,7 @@ import { useState, useEffect } from 'react'
 import { projectsData } from './ui/projectsData'
 
 // ============================================================
-// 1. IMÁGENES Y ENLACES VIEJOS (editá acá las URLs)
-// ============================================================
-//const portrait = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%2022%20jun%202026%2C%2020_24_33-2J198kGWZfIDkoqCfS3yxwXGKzsONL.png'
-//const collage = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Group%2013-4RCyDrsgiNnQc5mDQGCDvs13sxADYG.png'
-//const pexelsWorkspace = 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1400'
-
-// ============================================================
-// 2. REDES Y CONTACTO (editá acá los enlaces)
+// 1. REDES Y CONTACTO (editá acá los enlaces)
 // ============================================================
 const contactLinks = [
   ['WhatsApp', 'https://wa.me/541176411571'],
@@ -20,7 +13,7 @@ const contactLinks = [
 ]
 
 // ============================================================
-// 3. PALABRAS CLAVE (editá acá el ticker)
+// 2. PALABRAS CLAVE (editá acá el ticker)
 // ============================================================
 const keywords = [
   'UX RESEARCH',
@@ -34,7 +27,7 @@ const keywords = [
 ]
 
 // ============================================================
-// 4. COMPONENTE TICKER (no tocar)
+// 3. COMPONENTE TICKER (no tocar)
 // ============================================================
 function Ticker() {
   const items = [...keywords, ...keywords]
@@ -52,12 +45,22 @@ function Ticker() {
 }
 
 // ============================================================
-// 5. CASO DE ESTUDIO (no tocar)
+// 4. CASO DE ESTUDIO (no tocar)
 // ============================================================
 function CaseStudy({ onBack }: { onBack: () => void }) {
   return (
     <main className="case-study page-enter" id="case-study-top">
-      <button className="back-link" onClick={onBack}>← Back to portfolio</button>
+      <button 
+        className="back-link" 
+        onClick={() => { 
+          onBack(); 
+          setTimeout(() => {
+            window.dispatchEvent(new Event('resize'));
+          }, 10);
+        }}
+      >
+        ← Back to portfolio
+      </button>
       <p className="eyebrow">UX/UI CASE STUDY / 2023</p>
       <h1>Experta App<br /><em>Redesign.</em></h1>
       <p className="case-lede">Redesigning a mobile insurance experience to make it simpler, faster, and more accessible.</p>
@@ -110,7 +113,7 @@ function CaseStudy({ onBack }: { onBack: () => void }) {
 }
 
 // ============================================================
-// 6. COMPONENTE PRINCIPAL
+// 5. COMPONENTE PRINCIPAL
 // ============================================================
 export function PortfolioShell() {
   const [page, setPage] = useState<'home' | 'case'>('home')
@@ -155,6 +158,13 @@ export function PortfolioShell() {
     if (page === 'case') window.scrollTo({ top: 0, behavior: 'instant' })
   }, [page])
   
+  // 👇 NUEVO: Efecto para reiniciar el scroll al volver al home
+  useEffect(() => {
+    if (page === 'home') {
+      window.scrollTo({ top: 0, behavior: 'instant' })
+    }
+  }, [page])
+  
   // Botón "Back to Top"
   const backToTop = (
     <button 
@@ -171,7 +181,7 @@ export function PortfolioShell() {
   if (page === 'case') return <><CaseStudy onBack={() => setPage('home')} />{backToTop}</>
   
   // ============================================================
-  // 6a. TEXTO DEL HERO (editá acá)
+  // 5a. TEXTO DEL HERO (editá acá)
   // ============================================================
   const heroData = {
     eyebrow: 'DIGITAL PRODUCT DESIGN · UX/UI · AI · SYSTEMS',
@@ -183,7 +193,7 @@ export function PortfolioShell() {
   }
   
   // ============================================================
-  // 6b. TEXTO DEL ABOUT (editá acá)
+  // 5b. TEXTO DEL ABOUT (editá acá)
   // ============================================================
   const aboutData = {
     title: "Hello, I'm",
@@ -194,7 +204,7 @@ export function PortfolioShell() {
   }
   
   // ============================================================
-  // 6c. TEXTO DEL WORK (editá acá)
+  // 5c. TEXTO DEL WORK (editá acá)
   // ============================================================
   const workData = {
     label: '02 / SELECTED WORK',
@@ -204,7 +214,7 @@ export function PortfolioShell() {
   }
   
   // ============================================================
-  // 6d. TEXTO DEL CONTACTO (editá acá)
+  // 5d. TEXTO DEL CONTACTO (editá acá)
   // ============================================================
   const contactData = {
     label: '03 / CONTACT',
@@ -214,7 +224,7 @@ export function PortfolioShell() {
   }
   
   // ============================================================
-  // 6e. FOOTER (editá acá)
+  // 5e. FOOTER (editá acá)
   // ============================================================
   const footerData = {
     name: 'Ingrid Hansen',
@@ -223,10 +233,10 @@ export function PortfolioShell() {
   }
   
   // ============================================================
-  // 7. RENDER (no tocar)
+  // 6. RENDER (no tocar)
   // ============================================================
   return (
-    <main>
+    <main key={page === 'home' ? 'home' : 'case'}>
       <header className="site-header">
         <a className="wordmark" href={footerData.linkedinUrl} target="_blank" rel="noreferrer">
           {footerData.name}
