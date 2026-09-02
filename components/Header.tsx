@@ -5,7 +5,7 @@ import { ReactNode } from 'react'
 
 interface HeaderProps {
   variant?: 'full' | 'minimal'
-  onHomeClick?: () => void // Para que el botón Home funcione en los casos
+  onHomeClick?: () => void
 }
 
 export function Header({ variant = 'full', onHomeClick }: HeaderProps) {
@@ -14,12 +14,10 @@ export function Header({ variant = 'full', onHomeClick }: HeaderProps) {
       e.preventDefault()
       onHomeClick()
     }
-    // Si no hay onHomeClick, el link funciona como href="#home" normal
   }
 
   return (
     <header className="site-header">
-      {/* Si hay onHomeClick, el logo también vuelve al home */}
       <a 
         className="wordmark" 
         href="#home" 
@@ -29,7 +27,6 @@ export function Header({ variant = 'full', onHomeClick }: HeaderProps) {
       </a>
       <nav>
         {variant === 'full' ? (
-          // Menú completo (para el Home)
           <>
             <a className="nav-active" href="#home">Home</a>
             <a href="#work">Work</a>
@@ -37,7 +34,6 @@ export function Header({ variant = 'full', onHomeClick }: HeaderProps) {
             <a href="#contact">Contact</a>
           </>
         ) : (
-          // Menú minimalista (para los casos de estudio) - solo Home
           <a 
             className="nav-active" 
             href="#home" 
