@@ -2,9 +2,13 @@
 
 import { useState, useEffect } from 'react'
 import { projectsData } from './ui/projectsData'
+import { Header } from './Header'
+import { ProjectCard } from './ProjectCard'
+import { CaseStudyDetail } from './CaseStudyDetail'
+import { CaseStudyCarousel } from './CaseStudyCarousel'
 
 // ============================================================
-// 1. REDES Y CONTACTO (editá acá los enlaces)
+// 1. REDES Y CONTACTO
 // ============================================================
 const contactLinks = [
   ['WhatsApp', 'https://wa.me/541176411571'],
@@ -13,7 +17,7 @@ const contactLinks = [
 ]
 
 // ============================================================
-// 2. PALABRAS CLAVE (editá acá el ticker)
+// 2. PALABRAS CLAVE (ticker)
 // ============================================================
 const keywords = [
   'UX RESEARCH',
@@ -27,7 +31,7 @@ const keywords = [
 ]
 
 // ============================================================
-// 3. COMPONENTE TICKER (no tocar)
+// 3. COMPONENTE TICKER
 // ============================================================
 function Ticker() {
   const items = [...keywords, ...keywords]
@@ -45,107 +49,15 @@ function Ticker() {
 }
 
 // ============================================================
-// 4. CASO DE ESTUDIO (no tocar)
-// ============================================================
-function CaseStudy({ onBack }: { onBack: () => void }) {
-  return (
-    <main className="case-study page-enter" id="case-study-top">
-      <button 
-        className="back-link" 
-        onClick={() => { 
-          onBack(); 
-          setTimeout(() => {
-            window.dispatchEvent(new Event('resize'));
-          }, 10);
-        }}
-      >
-        ← Back to portfolio
-      </button>
-      <p className="eyebrow">UX/UI CASE STUDY / 2023</p>
-      <h1>Experta App<br /><em>Redesign.</em></h1>
-      <p className="case-lede">Redesigning a mobile insurance experience to make it simpler, faster, and more accessible.</p>
-      <img className="case-hero-image" src={projectsData.project1.image} alt="Experta App redesign presentation" />
-      
-      <section className="case-grid">
-        <div>
-          <p className="eyebrow">01 / THE PROBLEM</p>
-          <h2>Less friction.<br /><em>More confidence.</em></h2>
-        </div>
-        <div>
-          <p>Experta needed to turn a complex insurance ecosystem into a clear mobile experience. Customers struggled to find coverage details, request assistance, and understand what happened next.</p>
-          <p className="case-meta">ROLE · PRODUCT DESIGN<br />TEAM · PRODUCT + ENGINEERING<br />TIMELINE · 8 WEEKS</p>
-        </div>
-      </section>
-      
-      <section className="case-grid">
-        <div>
-          <p className="eyebrow">02 / THE DECISION</p>
-          <h2>Design the<br /><em>next step.</em></h2>
-        </div>
-        <div>
-          <p>We prioritized the moments that mattered most: a task-based home, plain-language coverage, and a guided assistance flow. Research and moderated testing shaped every iteration.</p>
-          <ol>
-            <li>Heuristic audit and support-ticket analysis.</li>
-            <li>User interviews and task mapping.</li>
-            <li>Flows, prototypes, and usability testing.</li>
-            <li>Accessible UI and production handoff.</li>
-          </ol>
-        </div>
-      </section>
-      
-      <img className="case-detail-image" src={projectsData.project2.image} alt="Design team collaborating around a table" />
-      
-      <section className="case-grid case-impact">
-        <div>
-          <p className="eyebrow">03 / THE IMPACT</p>
-          <h2>Clarity that<br /><em>moves people.</em></h2>
-        </div>
-        <div>
-          <p>The final direction gave users a more confident path from question to resolution, while giving the team a scalable foundation for future insurance journeys.</p>
-          <p className="case-meta">OUTCOME · CLEARER TASK FLOWS<br />NEXT · SCALE THE DESIGN SYSTEM</p>
-          <div className="project-links">
-            <a className="back-link" href="https://www.behance.net/gallery/250252187/From-Chaos-to-Clarity-Reverse-Engineering-an-App-2023" target="_blank" rel="noreferrer">View full case study on Behance ↗</a>
-          </div>
-        </div>
-      </section>
-    </main>
-  )
-}
-
-// ============================================================
-// 5. COMPONENTE PRINCIPAL
+// 4. COMPONENTE PRINCIPAL
 // ============================================================
 export function PortfolioShell() {
   const [page, setPage] = useState<'home' | 'case'>('home')
+  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null)
   const [showTop, setShowTop] = useState(false)
-  // 👇 NUEVO: Estado para forzar re-render
   const [renderKey, setRenderKey] = useState(0)
-  
-  // Efecto para el fade-in al hacer scroll
-  useEffect(() => {
-    const sections = document.querySelectorAll('.fade-section')
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible')
-        } else {
-          entry.target.classList.remove('is-visible')
-        }
-      })
-    }, {
-      threshold: 0.15,
-      rootMargin: '0px 0px -50px 0px'
-    })
-    
-    sections.forEach(section => observer.observe(section))
-    
-    return () => {
-      sections.forEach(section => observer.unobserve(section))
-    }
-  }, [renderKey]) // 👈 Dependencia para re-ejecutar cuando cambie renderKey
-  
-  // Efecto para mostrar el botón "Back to Top" al scrollear
+
+  // Efecto para mostrar el botón "Back to Top"
   useEffect(() => {
     const onScroll = () => {
       setShowTop(window.scrollY > 100)
@@ -154,21 +66,52 @@ export function PortfolioShell() {
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
-  
-  // Efecto para el caso de estudio
-  useEffect(() => {
-    if (page === 'case') window.scrollTo({ top: 0, behavior: 'instant' })
-  }, [page])
-  
-  // 👇 NUEVO: Efecto para reiniciar el scroll y forzar re-render al volver al home
+
+  // ============================================================
+  // EFECTO PRINCIPAL: Controla la carga del home al volver
+  // ============================================================
   useEffect(() => {
     if (page === 'home') {
-      window.scrollTo({ top: 0, behavior: 'instant' })
-      // Forzar re-render del home cambiando renderKey
+      // 1. Forzar re-render
       setRenderKey(prev => prev + 1)
+      // 2. Subir el scroll
+      window.scrollTo({ top: 0, behavior: 'instant' })
     }
   }, [page])
-  
+
+  // ============================================================
+  // EFECTO PARA EL FADE-IN (se ejecuta DESPUÉS de renderizar)
+  // ============================================================
+  useEffect(() => {
+    if (page === 'home') {
+      // Delay para asegurar que el DOM esté listo
+      const timer = setTimeout(() => {
+        const sections = document.querySelectorAll('.fade-section')
+        
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible')
+            } else {
+              entry.target.classList.remove('is-visible')
+            }
+          })
+        }, {
+          threshold: 0.15,
+          rootMargin: '0px 0px -50px 0px'
+        })
+        
+        sections.forEach(section => observer.observe(section))
+        
+        return () => {
+          sections.forEach(section => observer.unobserve(section))
+        }
+      }, 50) // 50ms de delay
+      
+      return () => clearTimeout(timer)
+    }
+  }, [page, renderKey])
+
   // Botón "Back to Top"
   const backToTop = (
     <button 
@@ -181,11 +124,49 @@ export function PortfolioShell() {
       </svg>
     </button>
   )
-  
-  if (page === 'case') return <><CaseStudy onBack={() => setPage('home')} />{backToTop}</>
-  
+
   // ============================================================
-  // 5a. TEXTO DEL HERO (editá acá)
+  // MANEJADORES DE NAVEGACIÓN
+  // ============================================================
+  const handleProjectClick = (projectId: string) => {
+    setSelectedProjectId(projectId)
+    setPage('case')
+  }
+
+  const handleBackToHome = () => {
+    setPage('home')
+    setSelectedProjectId(null)
+  }
+
+  const handleCarouselSelect = (projectId: string) => {
+    setSelectedProjectId(projectId)
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'instant' })
+    }, 10)
+  }
+
+  // ============================================================
+  // RENDER: CASO DE ESTUDIO
+  // ============================================================
+  if (page === 'case' && selectedProjectId) {
+    return (
+      <>
+        <Header />
+        <CaseStudyDetail 
+          projectId={selectedProjectId} 
+          onBack={handleBackToHome} 
+        />
+        <CaseStudyCarousel 
+          currentProjectId={selectedProjectId} 
+          onSelect={handleCarouselSelect} 
+        />
+        {backToTop}
+      </>
+    )
+  }
+
+  // ============================================================
+  // RENDER: HOME
   // ============================================================
   const heroData = {
     eyebrow: 'DIGITAL PRODUCT DESIGN · UX/UI · AI · SYSTEMS',
@@ -195,10 +176,7 @@ export function PortfolioShell() {
     highlight: 'B2B SAAS · WEB PRODUCTS · AI · STARTUPS',
     availability: '● OPEN TO PRODUCT DESIGN ROLES & FREELANCE PROJECTS'
   }
-  
-  // ============================================================
-  // 5b. TEXTO DEL ABOUT (editá acá)
-  // ============================================================
+
   const aboutData = {
     title: "Hello, I'm",
     titleEm: 'Ingrid.',
@@ -206,52 +184,35 @@ export function PortfolioShell() {
     linkText: 'More about me ↗',
     linkUrl: 'https://www.linkedin.com/in/ingrid-hansen-382298120'
   }
-  
-  // ============================================================
-  // 5c. TEXTO DEL WORK (editá acá)
-  // ============================================================
+
   const workData = {
     label: '02 / SELECTED WORK',
     title: 'Ideas that',
     titleEm: 'took shape.',
     subtitle: 'Case studies, learnings, and recent obsessions.'
   }
-  
-  // ============================================================
-  // 5d. TEXTO DEL CONTACTO (editá acá)
-  // ============================================================
+
   const contactData = {
     label: '03 / CONTACT',
     title: "Let's make",
     titleEm: 'something useful.',
     subtitle: 'Pick whatever works for you. I reply fast.'
   }
-  
-  // ============================================================
-  // 5e. FOOTER (editá acá)
-  // ============================================================
+
   const footerData = {
     name: 'Ingrid Hansen',
     role: 'Product & UX Designer',
     linkedinUrl: 'https://www.linkedin.com/in/ingrid-hansen-382298120'
   }
-  
-  // ============================================================
-  // 6. RENDER (no tocar)
-  // ============================================================
+
+  // Obtener los proyectos (excluyendo aboutPhoto)
+  const projects = Object.entries(projectsData)
+    .filter(([key]) => key !== 'aboutPhoto')
+    .map(([key, project]) => ({ key, ...project }))
+
   return (
-    <main key={page === 'home' ? `home-${renderKey}` : 'case'}>
-      <header className="site-header">
-        <a className="wordmark" href={footerData.linkedinUrl} target="_blank" rel="noreferrer">
-          {footerData.name}
-        </a>
-        <nav>
-          <a className="nav-active" href="#home">Home</a>
-          <a href="#work">Work</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
-        </nav>
-      </header>
+    <main key={`home-${renderKey}`}>
+      <Header />
       
       {/* ===== HERO ===== */}
       <section id="home" className="hero section-wrap">
@@ -300,32 +261,19 @@ export function PortfolioShell() {
           <p>{workData.subtitle}</p>
         </div>
         <div className="work-grid">
-          <article className="work-card work-card-featured" role="link" tabIndex={0} onClick={() => setPage('case')} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setPage('case') } }}>
-            <img src={projectsData.project1.image} alt="Experta App redesign screens" />
-            <div className="work-card-body">
-              <p className="project-type">Featured case study</p>
-              <h3>Experta App<br /><em>Redesign</em></h3>
-              <p>From complexity to confidence: a clearer insurance experience for real people.</p>
-            </div>
-          </article>
-          <article className="work-card">
-            <img src={projectsData.project2.image} alt="Product design team workshop" />
-            <div className="work-card-body">
-              <p className="project-type">Product design</p>
-              <h3>Systems that<br /><em>connect.</em></h3>
-              <p>Turning scattered needs into a shared, usable direction.</p>
-              <a className="case-button" href="#contact">Discuss a project ↗</a>
-            </div>
-          </article>
-          <article className="work-card">
-            <img src={projectsData.project3.image} alt="Editorial portrait of Ingrid Hansen" />
-            <div className="work-card-body">
-              <p className="project-type">UX research</p>
-              <h3>Closer to<br /><em>people.</em></h3>
-              <p>Research-led decisions for experiences that feel clear.</p>
-              <a className="case-button" href="#about">Read my approach ↗</a>
-            </div>
-          </article>
+          {projects.map((project, index) => {
+            const projectId = project.title.toLowerCase().replace(/\s/g, '-')
+            const isFeatured = index === 0
+            
+            return (
+              <ProjectCard
+                key={project.key}
+                project={project}
+                isFeatured={isFeatured}
+                onClick={() => handleProjectClick(projectId)}
+              />
+            )
+          })}
         </div>
       </section>
       
