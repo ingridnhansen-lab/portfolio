@@ -60,7 +60,6 @@ function CaseStudy({ projectId, onBack }: { projectId: string; onBack: () => voi
 
   return (
     <main className="case-study page-enter" id="case-study-top">
-      {/* 👇 HEADER MINIMALISTA (solo Home) */}
       <Header variant="minimal" onHomeClick={onBack} />
       
       <p className="eyebrow">UX/UI CASE STUDY / {caseStudy.year}</p>
@@ -186,9 +185,11 @@ export function PortfolioShell() {
   
   // Si estamos en un caso de estudio
   if (page === 'case' && selectedProjectId) {
+    console.log('Renderizando caso:', selectedProjectId)
     return (
       <>
         <CaseStudy 
+          key={selectedProjectId}
           projectId={selectedProjectId} 
           onBack={() => {
             setPage('home')
@@ -245,7 +246,6 @@ export function PortfolioShell() {
   // ============================================================
   return (
     <main key={`home-${renderKey}`}>
-      {/* 👇 HEADER COMPLETO (Home, Work, About, Contact) */}
       <Header variant="full" />
       
       {/* HERO */}
@@ -286,46 +286,73 @@ export function PortfolioShell() {
       </section>
       
       {/* WORK */}
-      <div className="work-grid">
-  {[projectsData.project1, projectsData.project2, projectsData.project3].map((project) => (
-    <article 
-      key={project.id}
-      className={`work-card ${project.id === 'experta-app' ? 'work-card-featured' : ''}`} 
-      role="link" 
-      tabIndex={0} 
-      onClick={() => {
-        console.log('Abriendo caso:', project.id) // 👈 PARA DEBUG
-        setSelectedProjectId(project.id)
-        setPage('case')
-        // Forzar scroll después de cambiar el estado
-        setTimeout(() => {
-          window.scrollTo({ top: 0, behavior: 'instant' })
-        }, 10)
-      }}
-      onKeyDown={(event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault()
-          console.log('Abriendo caso (teclado):', project.id)
-          setSelectedProjectId(project.id)
-          setPage('case')
-          setTimeout(() => {
-            window.scrollTo({ top: 0, behavior: 'instant' })
-          }, 10)
-        }
-      }}
-    >
-      <img src={project.image} alt={project.title} />
-      <div className="work-card-body">
-        <p className="project-type">{project.type}</p>
-        <h3>{project.title}<br /><em>{project.subtitle}</em></h3>
-        <p>{project.description}</p>
-        {project.id === 'experta-app' ? null : (
-          <a className="case-button" href="#contact">Discuss a project ↗</a>
-        )}
-      </div>
-    </article>
-  ))}
-</div>
+      <section id="work" className="work section-wrap fade-section">
+        <p className="section-label">{workData.label}</p>
+        <div className="section-heading">
+          <h2>
+            {workData.title}<br /><em>{workData.titleEm}</em>
+          </h2>
+          <p>{workData.subtitle}</p>
+        </div>
+        <div className="work-grid">
+          {[projectsData.project1, projectsData.project2, projectsData.project3].map((project) => (
+            <article 
+              key={project.id}
+              className={`work-card ${project.id === 'experta-app' ? 'work-card-featured' : ''}`} 
+              role="link" 
+              tabIndex={0} 
+              onClick={() => {
+                console.log('Abriendo caso:', project.id)
+                setSelectedProjectId(project.id)
+                setPage('case')
+                setTimeout(() => {
+                  window.scrollTo({ top: 0, behavior: 'instant' })
+                }, 10)
+              }}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault()
+                  console.log('Abriendo caso (teclado):', project.id)
+                  setSelectedProjectId(project.id)
+                  setPage('case')
+                  setTimeout(() => {
+                    window.scrollTo({ top: 0, behavior: 'instant' })
+                  }, 10)
+                }
+              }}
+            >
+              <img src={project.image} alt={project.title} />
+              <div className="work-card-body">
+                <p className="project-type">{project.type}</p>
+                <h3>{project.title}<br /><em>{project.subtitle}</em></h3>
+                <p>{project.description}</p>
+                {project.id === 'experta-app' ? null : (
+                  <a className="case-button" href="#contact">Discuss a project ↗</a>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+      
+      {/* CONTACT */}
+      <section id="contact" className="contact-section section-wrap fade-section">
+        <p className="section-label">{contactData.label}</p>
+        <div className="contact-heading">
+          <h2>
+            {contactData.title}<br /><em>{contactData.titleEm}</em>
+          </h2>
+          <p>{contactData.subtitle}</p>
+        </div>
+        <div className="contact-links-grid">
+          {contactLinks.map(([label, href]) => (
+            <a key={label} href={href} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noreferrer' : undefined}>
+              <span>{label}</span>
+              <b>↗</b>
+            </a>
+          ))}
+        </div>
+      </section>
       
       {/* FOOTER */}
       <footer>
