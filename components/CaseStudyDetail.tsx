@@ -27,7 +27,6 @@ export function CaseStudyDetail({ projectId, onBack }: CaseStudyDetailProps) {
 
   return (
     <main className="case-study page-enter" id="case-study-top">
-      <button className="back-link" onClick={onBack}>← Back to portfolio</button>
       <p className="eyebrow">UX/UI CASE STUDY / {caseStudy.year}</p>
       <h1>{project.title}<br /><em>{project.subtitle}</em></h1>
       <p className="case-lede">{caseStudy.problem}</p>
