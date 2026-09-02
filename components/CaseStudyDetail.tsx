@@ -18,7 +18,6 @@ export function CaseStudyDetail({ projectId, onBack }: CaseStudyDetailProps) {
   if (!project || !project.caseStudy) {
     return (
       <main className="case-study page-enter">
-        <button className="back-link" onClick={onBack}>← Back to portfolio</button>
         <p>Proyecto no encontrado</p>
       </main>
     )
