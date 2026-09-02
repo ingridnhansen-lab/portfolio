@@ -78,6 +78,14 @@ export function PortfolioShell() {
       window.scrollTo({ top: 0, behavior: 'instant' })
     }
   }, [page])
+// ==============================================================================
+ // Efecto para forzar scroll al principio cuando se abre un caso de estudio
+  // ============================================================================
+useEffect(() => {
+  if (page === 'case') {
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }
+}, [page])
 
   // ============================================================
   // EFECTO PARA EL FADE-IN (se ejecuta DESPUÉS de renderizar)
