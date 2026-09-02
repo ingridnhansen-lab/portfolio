@@ -207,8 +207,11 @@ export function PortfolioShell() {
 
   // Obtener los proyectos (excluyendo aboutPhoto)
   const projects = Object.entries(projectsData)
-    .filter(([key]) => key !== 'aboutPhoto')
-    .map(([key, project]) => ({ key, ...project }))
+  .filter(([key, value]) => {
+    // Solo incluir claves que empiecen con 'project' y tengan title
+    return key.startsWith('project') && value && value.title
+  })
+  .map(([key, project]) => ({ key, ...project }))
 
   return (
     <main key={`home-${renderKey}`}>
