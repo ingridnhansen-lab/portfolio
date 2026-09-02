@@ -3,9 +3,6 @@
 import { useState, useEffect } from 'react'
 import { projectsData } from './ui/projectsData'
 import { Header } from './Header'
-import { ProjectCard } from './ProjectCard'
-import { CaseStudyDetail } from './CaseStudyDetail'
-import { CaseStudyCarousel } from './CaseStudyCarousel'
 
 // ============================================================
 // 1. REDES Y CONTACTO
@@ -17,7 +14,7 @@ const contactLinks = [
 ]
 
 // ============================================================
-// 2. PALABRAS CLAVE (ticker)
+// 2. PALABRAS CLAVE
 // ============================================================
 const keywords = [
   'UX RESEARCH',
@@ -31,7 +28,7 @@ const keywords = [
 ]
 
 // ============================================================
-// 3. COMPONENTE TICKER
+// 3. TICKER
 // ============================================================
 function Ticker() {
   const items = [...keywords, ...keywords]
@@ -49,15 +46,77 @@ function Ticker() {
 }
 
 // ============================================================
-// 4. COMPONENTE PRINCIPAL
+// 4. CASO DE ESTUDIO
+// ============================================================
+function CaseStudy({ projectId, onBack }: { projectId: string; onBack: () => void }) {
+  // Buscar el proyecto por su ID
+  const project = Object.values(projectsData).find(p => p.id === projectId)
+  
+  if (!project) {
+    return <div>Proyecto no encontrado</div>
+  }
+
+  const { caseStudy } = project
+
+  return (
+    <main className="case-study page-enter" id="case-study-top">
+      {/* 👇 HEADER MINIMALISTA (solo Home) */}
+      <Header variant="minimal" onHomeClick={onBack} />
+      
+      <p className="eyebrow">UX/UI CASE STUDY / {caseStudy.year}</p>
+      <h1>{project.title}<br /><em>{project.subtitle}</em></h1>
+      <p className="case-lede">{caseStudy.problem}</p>
+      <img className="case-hero-image" src={caseStudy.heroImage} alt={project.title} />
+      
+      <section className="case-grid">
+        <div>
+          <p className="eyebrow">01 / THE PROBLEM</p>
+          <h2>Less friction.<br /><em>More confidence.</em></h2>
+        </div>
+        <div>
+          <p>{caseStudy.problem}</p>
+          <p className="case-meta">ROLE · {caseStudy.role}<br />TEAM · {caseStudy.team}<br />TIMELINE · {caseStudy.timeline}</p>
+        </div>
+      </section>
+      
+      <section className="case-grid">
+        <div>
+          <p className="eyebrow">02 / THE DECISION</p>
+          <h2>Design the<br /><em>next step.</em></h2>
+        </div>
+        <div>
+          <p>{caseStudy.decision}</p>
+        </div>
+      </section>
+      
+      <img className="case-detail-image" src={caseStudy.heroImage} alt={project.title} />
+      
+      <section className="case-grid case-impact">
+        <div>
+          <p className="eyebrow">03 / THE IMPACT</p>
+          <h2>Clarity that<br /><em>moves people.</em></h2>
+        </div>
+        <div>
+          <p>{caseStudy.impact}</p>
+          <div className="project-links">
+            <a className="back-link" href={caseStudy.behanceLink} target="_blank" rel="noreferrer">View full case study on Behance ↗</a>
+          </div>
+        </div>
+      </section>
+    </main>
+  )
+}
+
+// ============================================================
+// 5. COMPONENTE PRINCIPAL
 // ============================================================
 export function PortfolioShell() {
   const [page, setPage] = useState<'home' | 'case'>('home')
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null)
   const [showTop, setShowTop] = useState(false)
   const [renderKey, setRenderKey] = useState(0)
-
-  // Efecto para mostrar el botón "Back to Top"
+  
+  // Efecto para mostrar el botón "Back to Top" al scrollear
   useEffect(() => {
     const onScroll = () => {
       setShowTop(window.scrollY > 100)
@@ -66,33 +125,25 @@ export function PortfolioShell() {
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
-
-  // ============================================================
+  
   // EFECTO PRINCIPAL: Controla la carga del home al volver
-  // ============================================================
   useEffect(() => {
     if (page === 'home') {
-      // 1. Forzar re-render
       setRenderKey(prev => prev + 1)
-      // 2. Subir el scroll
       window.scrollTo({ top: 0, behavior: 'instant' })
     }
   }, [page])
-// ==============================================================================
- // Efecto para forzar scroll al principio cuando se abre un caso de estudio
-  // ============================================================================
-useEffect(() => {
-  if (page === 'case') {
-    window.scrollTo({ top: 0, behavior: 'instant' })
-  }
-}, [page])
-
-  // ============================================================
-  // EFECTO PARA EL FADE-IN (se ejecuta DESPUÉS de renderizar)
-  // ============================================================
+  
+  // Efecto para forzar scroll al principio cuando se abre un caso
+  useEffect(() => {
+    if (page === 'case') {
+      window.scrollTo({ top: 0, behavior: 'instant' })
+    }
+  }, [page])
+  
+  // EFECTO PARA EL FADE-IN
   useEffect(() => {
     if (page === 'home') {
-      // Delay para asegurar que el DOM esté listo
       const timer = setTimeout(() => {
         const sections = document.querySelectorAll('.fade-section')
         
@@ -114,12 +165,12 @@ useEffect(() => {
         return () => {
           sections.forEach(section => observer.unobserve(section))
         }
-      }, 50) // 50ms de delay
+      }, 50)
       
       return () => clearTimeout(timer)
     }
   }, [page, renderKey])
-
+  
   // Botón "Back to Top"
   const backToTop = (
     <button 
@@ -132,49 +183,25 @@ useEffect(() => {
       </svg>
     </button>
   )
-
-  // ============================================================
-  // MANEJADORES DE NAVEGACIÓN
-  // ============================================================
-  const handleProjectClick = (projectId: string) => {
-    setSelectedProjectId(projectId)
-    setPage('case')
-  }
-
-  const handleBackToHome = () => {
-    setPage('home')
-    setSelectedProjectId(null)
-  }
-
-  const handleCarouselSelect = (projectId: string) => {
-    setSelectedProjectId(projectId)
-    setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: 'instant' })
-    }, 10)
-  }
-
-  // ============================================================
-  // RENDER: CASO DE ESTUDIO
-  // ============================================================
+  
+  // Si estamos en un caso de estudio
   if (page === 'case' && selectedProjectId) {
     return (
       <>
-        <Header />
-        <CaseStudyDetail 
+        <CaseStudy 
           projectId={selectedProjectId} 
-          onBack={handleBackToHome} 
-        />
-        <CaseStudyCarousel 
-          currentProjectId={selectedProjectId} 
-          onSelect={handleCarouselSelect} 
+          onBack={() => {
+            setPage('home')
+            window.scrollTo({ top: 0, behavior: 'instant' })
+          }} 
         />
         {backToTop}
       </>
     )
   }
-
+  
   // ============================================================
-  // RENDER: HOME
+  // TEXTOS DEL HOME
   // ============================================================
   const heroData = {
     eyebrow: 'DIGITAL PRODUCT DESIGN · UX/UI · AI · SYSTEMS',
@@ -184,7 +211,7 @@ useEffect(() => {
     highlight: 'B2B SAAS · WEB PRODUCTS · AI · STARTUPS',
     availability: '● OPEN TO PRODUCT DESIGN ROLES & FREELANCE PROJECTS'
   }
-
+  
   const aboutData = {
     title: "Hello, I'm",
     titleEm: 'Ingrid.',
@@ -192,40 +219,36 @@ useEffect(() => {
     linkText: 'More about me ↗',
     linkUrl: 'https://www.linkedin.com/in/ingrid-hansen-382298120'
   }
-
+  
   const workData = {
     label: '02 / SELECTED WORK',
     title: 'Ideas that',
     titleEm: 'took shape.',
     subtitle: 'Case studies, learnings, and recent obsessions.'
   }
-
+  
   const contactData = {
     label: '03 / CONTACT',
     title: "Let's make",
     titleEm: 'something useful.',
     subtitle: 'Pick whatever works for you. I reply fast.'
   }
-
+  
   const footerData = {
     name: 'Ingrid Hansen',
     role: 'Product & UX Designer',
     linkedinUrl: 'https://www.linkedin.com/in/ingrid-hansen-382298120'
   }
-
-  // Obtener los proyectos (excluyendo aboutPhoto)
-  const projects = Object.entries(projectsData)
-  .filter(([key, value]) => {
-    // Solo incluir claves que empiecen con 'project' y tengan title
-    return key.startsWith('project') && value && value.title
-  })
-  .map(([key, project]) => ({ key, ...project }))
-
+  
+  // ============================================================
+  // RENDER DEL HOME
+  // ============================================================
   return (
     <main key={`home-${renderKey}`}>
-      <Header />
+      {/* 👇 HEADER COMPLETO (Home, Work, About, Contact) */}
+      <Header variant="full" />
       
-      {/* ===== HERO ===== */}
+      {/* HERO */}
       <section id="home" className="hero section-wrap">
         <div className="hero-copy">
           <p className="eyebrow">
@@ -243,7 +266,7 @@ useEffect(() => {
       
       <Ticker />
       
-      {/* ===== ABOUT ===== */}
+      {/* ABOUT */}
       <section id="about" className="about section-wrap fade-section">
         <p className="section-label">01 / ABOUT</p>
         <div className="about-grid">
@@ -257,12 +280,12 @@ useEffect(() => {
             </a>
           </div>
           <div className="about-card">
-            <img src={projectsData.aboutPhoto} alt="Ingrid Hansen holding coffee" />
+            <img src={projectsData.aboutImage} alt="Ingrid Hansen holding coffee" />
           </div>
         </div>
       </section>
       
-      {/* ===== WORK ===== */}
+      {/* WORK */}
       <section id="work" className="work section-wrap fade-section">
         <p className="section-label">{workData.label}</p>
         <div className="section-heading">
@@ -272,23 +295,41 @@ useEffect(() => {
           <p>{workData.subtitle}</p>
         </div>
         <div className="work-grid">
-          {projects.map((project, index) => {
-            const projectId = project.title.toLowerCase().replace(/\s/g, '-')
-            const isFeatured = index === 0
-            
-            return (
-              <ProjectCard
-                key={project.key}
-                project={project}
-                isFeatured={isFeatured}
-                onClick={() => handleProjectClick(projectId)}
-              />
-            )
-          })}
+          {[projectsData.project1, projectsData.project2, projectsData.project3].map((project) => (
+            <article 
+              key={project.id}
+              className={`work-card ${project.id === 'experta-app' ? 'work-card-featured' : ''}`} 
+              role="link" 
+              tabIndex={0} 
+              onClick={() => {
+                setSelectedProjectId(project.id)
+                setPage('case')
+                window.scrollTo({ top: 0, behavior: 'instant' })
+              }}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault()
+                  setSelectedProjectId(project.id)
+                  setPage('case')
+                  window.scrollTo({ top: 0, behavior: 'instant' })
+                }
+              }}
+            >
+              <img src={project.image} alt={project.title} />
+              <div className="work-card-body">
+                <p className="project-type">{project.type}</p>
+                <h3>{project.title}<br /><em>{project.subtitle}</em></h3>
+                <p>{project.description}</p>
+                {project.id === 'experta-app' ? null : (
+                  <a className="case-button" href="#contact">Discuss a project ↗</a>
+                )}
+              </div>
+            </article>
+          ))}
         </div>
       </section>
       
-      {/* ===== CONTACT ===== */}
+      {/* CONTACT */}
       <section id="contact" className="contact-section section-wrap fade-section">
         <p className="section-label">{contactData.label}</p>
         <div className="contact-heading">
@@ -307,7 +348,7 @@ useEffect(() => {
         </div>
       </section>
       
-      {/* ===== FOOTER ===== */}
+      {/* FOOTER */}
       <footer>
         <strong>{footerData.name}</strong>
         <span>{footerData.role}</span>
