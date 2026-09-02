@@ -12,7 +12,7 @@ export const projectsData = {
   // PROYECTO 1 (Experta App)
   // ============================================================
   project1: {
-    id: 'experta-app', // 👈 CLAVE
+    id: 'experta-app',
     image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Group%2013-4RCyDrsgiNnQc5mDQGCDvs13sxADYG.png',
     type: 'Featured case study',
     title: 'Experta App',
@@ -35,7 +35,7 @@ export const projectsData = {
   // PROYECTO 2 (Systems that connect)
   // ============================================================
   project2: {
-    id: 'systems-connect', // 👈 CLAVE
+    id: 'systems-connect',
     image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1400',
     type: 'Product design',
     title: 'Systems that',
@@ -58,7 +58,7 @@ export const projectsData = {
   // PROYECTO 3 (Closer to people)
   // ============================================================
   project3: {
-    id: 'closer-to-people', // 👈 CLAVE
+    id: 'closer-to-people',
     image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%2022%20jun%202026%2C%2020_24_33-2J198kGWZfIDkoqCfS3yxwXGKzsONL.png',
     type: 'UX research',
     title: 'Closer to',
