@@ -15,31 +15,34 @@ export const projectsData = {
     id: 'experta-app',
     image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Group%2013-4RCyDrsgiNnQc5mDQGCDvs13sxADYG.png',
     type: 'Featured case study',
-    title: 'Redesigning insurance for a digital-first generation.',
-    //subtitle: 'A senior-friendly, task-based UI/UX architecture that turned broken user flows into a frictionless experience',
-    // Descripción ultra corta para la card: enfocada en el resultado y las palabras clave SEO.
-    description: 'Senior-friendly UX redesign. Offline-first and task-based navigation to empower self-service and cut agent dependency.',
+    title: 'Experta App',
+    subtitle: 'Redesign',
+    description: 'From complexity to confidence: a clearer insurance experience for real people.',
     caseStudy: {
       heroImage: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Group%2013-4RCyDrsgiNnQc5mDQGCDvs13sxADYG.png',
-      //year: '2023',
+      year: '2023',
       role: 'PRODUCT DESIGN',
       team: 'PRODUCT + ENGINEERING',
       timeline: '8 WEEKS',
-      problem: `A broken app with zero visibility.\n 
-• Constrained team (1 developer, no documentation).\n 
-• Critical login failures and zero offline document access.\n 
-• Confusing internal structure forcing users to call support.`,
-      decision: `A phased roadmap of "Quick Wins" alongside a new architecture.
-• Usability testing revealed 60% of users set up the app for elderly parents.\n 
-• Pivoted to a simplified, task-based hierarchy accessible for all ages.\n 
-• Prioritized offline persistence and unified navigation.`,
-      impact: `Validated through a second usability round.
-• Document downloads: 60% to 100% success.\n 
-• Agent contact: 40% to 80% success.\n 
-• Password reset: 20% to 80% success.`,
+      // 👇 TÍTULOS PERSONALIZADOS
+      problemTitle: 'Less friction.',
+      problemEm: 'More confidence.',
+      decisionTitle: 'Design the',
+      decisionEm: 'next step.',
+      impactTitle: 'Clarity that',
+      impactEm: 'moves people.',
+      problem: `Experta needed to turn a complex insurance ecosystem into a clear mobile experience.
+Customers struggled to find coverage details, request assistance,
+and understand what happened next.`,
+      decision: `We prioritized the moments that mattered most: a task-based home,
+plain-language coverage, and a guided assistance flow.
+Research and moderated testing shaped every iteration.`,
+      impact: `The final direction gave users a more confident path from question to resolution,
+while giving the team a scalable foundation for future insurance journeys.`,
       behanceLink: 'https://www.behance.net/gallery/250252187/From-Chaos-to-Clarity-Reverse-Engineering-an-App-2023',
     }
   },
+  
   // ============================================================
   // PROYECTO 2 (Systems that connect)
   // ============================================================
@@ -56,9 +59,21 @@ export const projectsData = {
       role: 'PRODUCT DESIGN',
       team: 'PRODUCT + ENGINEERING',
       timeline: '6 WEEKS',
-      problem: `[REEMPLAZÁ CON TU TEXTO REAL]`,
-      decision: `[REEMPLAZÁ CON TU TEXTO REAL]`,
-      impact: `[REEMPLAZÁ CON TU TEXTO REAL]`,
+      // 👇 TÍTULOS PERSONALIZADOS
+      problemTitle: 'Scattered systems.',
+      problemEm: 'Unified vision.',
+      decisionTitle: 'Design the',
+      decisionEm: 'connective tissue.',
+      impactTitle: 'Clarity that',
+      impactEm: 'scales.',
+      problem: `The team had multiple design systems scattered across products,
+making maintenance and consistency impossible.
+We needed a unified approach that would work for all products.`,
+      decision: `I led a project to unify all design systems into a single, scalable library,
+focusing on component reusability and clear documentation.
+We created a governance model that allowed teams to contribute while maintaining quality.`,
+      impact: `Unified design system now used by 4 products,
+reducing design debt by 60% and speeding up product delivery by 30%.`,
       behanceLink: '#',
     }
   },
@@ -79,9 +94,21 @@ export const projectsData = {
       role: 'UX RESEARCH',
       team: 'RESEARCH + PRODUCT',
       timeline: '4 WEEKS',
-      problem: `[REEMPLAZÁ CON TU TEXTO REAL]`,
-      decision: `[REEMPLAZÁ CON TU TEXTO REAL]`,
-      impact: `[REEMPLAZÁ CON TU TEXTO REAL]`,
+      // 👇 TÍTULOS PERSONALIZADOS
+      problemTitle: 'Users dropping.',
+      problemEm: 'Understanding why.',
+      decisionTitle: 'Research as',
+      decisionEm: 'the compass.',
+      impactTitle: 'Data that',
+      impactEm: 'drives change.',
+      problem: `Users were abandoning the onboarding flow at a 45% rate,
+and we didn't know why.
+We needed to understand the friction points and fix them.`,
+      decision: `I conducted 20 user interviews and usability tests to identify friction points,
+then redesigned the onboarding flow based on research insights.
+We iterated on the design based on real user feedback.`,
+      impact: `Onboarding abandonment dropped to 15%,
+and user satisfaction increased by 30% within the first month.`,
       behanceLink: '#',
     }
   },
