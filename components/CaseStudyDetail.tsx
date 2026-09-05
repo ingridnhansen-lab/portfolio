@@ -9,12 +9,10 @@ interface CaseStudyDetailProps {
 }
 
 export function CaseStudyDetail({ projectId, onBack }: CaseStudyDetailProps) {
-  // Buscar el proyecto por ID
   const project = Object.values(projectsData).find(
     (p) => p.id === projectId
   )
   
-  // Si no se encuentra el proyecto, mostrar mensaje de error
   if (!project || !project.caseStudy) {
     return (
       <main className="case-study page-enter">
@@ -30,7 +28,7 @@ export function CaseStudyDetail({ projectId, onBack }: CaseStudyDetailProps) {
       <p className="eyebrow">UX/UI CASE STUDY / {caseStudy.year}</p>
       <h1>{project.title}<br /><em>{project.subtitle}</em></h1>
       
-      {/* Usamos la descripción de la card como "lede" para no repetir el problema */}
+      {/* Usamos la descripción corta */}
       <p className="case-lede">{project.description}</p>
       
       <img className="case-hero-image" src={caseStudy.heroImage} alt={project.title} />
@@ -44,7 +42,7 @@ export function CaseStudyDetail({ projectId, onBack }: CaseStudyDetailProps) {
           </h2>
         </div>
         <div>
-          {/* Agregamos style para forzar los saltos de línea del data file */}
+          {/* El style="whiteSpace: pre-line" es la clave para que \n funcione */}
           <p style={{ whiteSpace: 'pre-line' }}>{caseStudy.problem}</p>
           <p className="case-meta">
             ROLE · {caseStudy.role}<br />
@@ -63,15 +61,7 @@ export function CaseStudyDetail({ projectId, onBack }: CaseStudyDetailProps) {
           </h2>
         </div>
         <div>
-          {/* Agregamos style para forzar los saltos de línea del data file */}
           <p style={{ whiteSpace: 'pre-line' }}>{caseStudy.decision}</p>
-          {caseStudy.steps && (
-            <ol>
-              {caseStudy.steps.map((step, index) => (
-                <li key={index}>{step}</li>
-              ))}
-            </ol>
-          )}
         </div>
       </section>
       
@@ -86,7 +76,6 @@ export function CaseStudyDetail({ projectId, onBack }: CaseStudyDetailProps) {
           </h2>
         </div>
         <div>
-          {/* Agregamos style para forzar los saltos de línea del data file */}
           <p style={{ whiteSpace: 'pre-line' }}>{caseStudy.impact}</p>
           <div className="project-links">
             <a className="back-link" href={caseStudy.behanceLink} target="_blank" rel="noreferrer">
