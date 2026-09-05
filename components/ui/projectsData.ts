@@ -17,7 +17,8 @@ export const projectsData = {
     type: 'Featured case study',
     title: 'Redesigning insurance for a digital-first generation.',
     subtitle: 'A senior-friendly, task-based UI/UX architecture that turned broken user flows into a frictionless experience',
-    description: 'A senior-friendly UX redesign prioritizing offline-first and task-based navigation. Empowering users to self-serve while reducing agent dependency.',
+    // Descripción ultra corta para la card: enfocada en el resultado y las palabras clave SEO.
+    description: 'Senior-friendly UX redesign. Offline-first and task-based navigation to empower self-service and cut agent dependency.',
     caseStudy: {
       heroImage: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Group%2013-4RCyDrsgiNnQc5mDQGCDvs13sxADYG.png',
       //year: '2023',
@@ -32,10 +33,10 @@ export const projectsData = {
 • Usability testing revealed 60% of users set up the app for elderly parents.
 • Pivoted to a simplified, task-based hierarchy accessible for all ages.
 • Prioritized offline persistence and unified navigation.`,
-      impact: `Validated through a second usability round:
-• Document downloads: 60% → 100% success.
-• Agent contact: 40% → 80% success.
-• Password reset: 20% → 80% success.`,
+      impact: `Validated through a second usability round.
+• Document downloads: 60% to 100% success.
+• Agent contact: 40% to 80% success.
+• Password reset: 20% to 80% success.`,
       behanceLink: 'https://www.behance.net/gallery/250252187/From-Chaos-to-Clarity-Reverse-Engineering-an-App-2023',
     }
   },
