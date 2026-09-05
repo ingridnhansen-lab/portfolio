@@ -29,7 +29,10 @@ export function CaseStudyDetail({ projectId, onBack }: CaseStudyDetailProps) {
     <main className="case-study page-enter" id="case-study-top">
       <p className="eyebrow">UX/UI CASE STUDY / {caseStudy.year}</p>
       <h1>{project.title}<br /><em>{project.subtitle}</em></h1>
-      <p className="case-lede">{caseStudy.problem}</p>
+      
+      {/* Usamos la descripción de la card como "lede" para no repetir el problema */}
+      <p className="case-lede">{project.description}</p>
+      
       <img className="case-hero-image" src={caseStudy.heroImage} alt={project.title} />
       
       <section className="case-grid">
@@ -41,7 +44,8 @@ export function CaseStudyDetail({ projectId, onBack }: CaseStudyDetailProps) {
           </h2>
         </div>
         <div>
-          <p>{caseStudy.problem}</p>
+          {/* Agregamos style para forzar los saltos de línea del data file */}
+          <p style={{ whiteSpace: 'pre-line' }}>{caseStudy.problem}</p>
           <p className="case-meta">
             ROLE · {caseStudy.role}<br />
             TEAM · {caseStudy.team}<br />
@@ -59,7 +63,8 @@ export function CaseStudyDetail({ projectId, onBack }: CaseStudyDetailProps) {
           </h2>
         </div>
         <div>
-          <p>{caseStudy.decision}</p>
+          {/* Agregamos style para forzar los saltos de línea del data file */}
+          <p style={{ whiteSpace: 'pre-line' }}>{caseStudy.decision}</p>
           {caseStudy.steps && (
             <ol>
               {caseStudy.steps.map((step, index) => (
@@ -81,7 +86,8 @@ export function CaseStudyDetail({ projectId, onBack }: CaseStudyDetailProps) {
           </h2>
         </div>
         <div>
-          <p>{caseStudy.impact}</p>
+          {/* Agregamos style para forzar los saltos de línea del data file */}
+          <p style={{ whiteSpace: 'pre-line' }}>{caseStudy.impact}</p>
           <div className="project-links">
             <a className="back-link" href={caseStudy.behanceLink} target="_blank" rel="noreferrer">
               View full case study on Behance ↗
