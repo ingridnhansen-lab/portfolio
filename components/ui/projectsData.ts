@@ -8,6 +8,7 @@ export const projectsData = {
     title: 'Experta App',
     subtitle: 'Redesign',
     description: 'From complexity to confidence: a senior-friendly UX redesign for insurance.',
+    featured: true, // 👈 controla si se muestra destacada en el home
   },
   
   project2: {
