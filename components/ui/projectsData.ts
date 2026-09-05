@@ -16,8 +16,8 @@ export const projectsData = {
     image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Group%2013-4RCyDrsgiNnQc5mDQGCDvs13sxADYG.png',
     type: 'Featured case study',
     title: 'Redesigning insurance for a digital-first generation.',
-    subtitle: 'A senior-friendly, task-based UI/UX architecture that turned broken user flows into a frictionless experience',
-    description: 'A UX redesign replacing a confusing, department-based architecture with a clean, task-oriented experience. By prioritizing offline-first persistence and unified access, we empowered users to complete complex insurance tasks independently. The result is an intuitive mobile experience, accessible for all ages, significantly reducing internal friction and agent dependency.',
+    //subtitle: '',
+    //description: 'A senior-friendly, task-based UI/UX architecture that turned broken user flows into a frictionless experience.',
     caseStudy: {
       heroImage: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Group%2013-4RCyDrsgiNnQc5mDQGCDvs13sxADYG.png',
       //year: '2023',
