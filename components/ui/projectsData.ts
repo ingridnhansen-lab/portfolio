@@ -25,17 +25,17 @@ export const projectsData = {
       role: 'PRODUCT DESIGN',
       team: 'PRODUCT + ENGINEERING',
       timeline: '8 WEEKS',
-      problem: `A broken app with zero visibility.<br>
-• Constrained team (1 developer, no documentation).<br>
-• Critical login failures and zero offline document access.<br>
+      problem: `A broken app with zero visibility.\n 
+• Constrained team (1 developer, no documentation).\n 
+• Critical login failures and zero offline document access.\n 
 • Confusing internal structure forcing users to call support.`,
       decision: `A phased roadmap of "Quick Wins" alongside a new architecture.
-• Usability testing revealed 60% of users set up the app for elderly parents.<br>
-• Pivoted to a simplified, task-based hierarchy accessible for all ages.<br>
+• Usability testing revealed 60% of users set up the app for elderly parents.\n 
+• Pivoted to a simplified, task-based hierarchy accessible for all ages.\n 
 • Prioritized offline persistence and unified navigation.`,
       impact: `Validated through a second usability round.
-• Document downloads: 60% to 100% success.<br>
-• Agent contact: 40% to 80% success.<br>
+• Document downloads: 60% to 100% success.\n 
+• Agent contact: 40% to 80% success.\n 
 • Password reset: 20% to 80% success.`,
       behanceLink: 'https://www.behance.net/gallery/250252187/From-Chaos-to-Clarity-Reverse-Engineering-an-App-2023',
     }
