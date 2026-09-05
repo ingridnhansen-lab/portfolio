@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { projectsData } from './ui/projectsData'
 import { Header } from './Header'
+import { CaseStudyRenderer } from './CaseStudyRenderer'
 
 // ============================================================
 // 1. REDES Y CONTACTO
@@ -45,67 +46,7 @@ function Ticker() {
   )
 }
 
-// ============================================================
-// 4. CASO DE ESTUDIO
-// ============================================================
-function CaseStudy({ projectId, onBack }: { projectId: string; onBack: () => void }) {
-  // Buscar el proyecto por su ID
-  const project = Object.values(projectsData).find(p => p.id === projectId)
-  
-  if (!project) {
-    return <div>Proyecto no encontrado</div>
-  }
-
-  const { caseStudy } = project
-
-  return (
-    <main className="case-study page-enter" id="case-study-top">
-      {/* 👇 HEADER MINIMALISTA (solo Home) */}
-      <Header variant="minimal" onHomeClick={onBack} />
-      
-      <p className="eyebrow">UX/UI CASE STUDY / {caseStudy.year}</p>
-      <h1>{project.title}<br /><em>{project.subtitle}</em></h1>
-      <p className="case-lede">{caseStudy.problem}</p>
-      <img className="case-hero-image" src={caseStudy.heroImage} alt={project.title} />
-      
-      <section className="case-grid">
-        <div>
-          <p className="eyebrow">01 / THE PROBLEM</p>
-          <h2>Less friction.<br /><em>More confidence.</em></h2>
-        </div>
-        <div>
-          <p>{caseStudy.problem}</p>
-          <p className="case-meta">ROLE · {caseStudy.role}<br />TEAM · {caseStudy.team}<br />TIMELINE · {caseStudy.timeline}</p>
-        </div>
-      </section>
-      
-      <section className="case-grid">
-        <div>
-          <p className="eyebrow">02 / THE DECISION</p>
-          <h2>Design the<br /><em>next step.</em></h2>
-        </div>
-        <div>
-          <p>{caseStudy.decision}</p>
-        </div>
-      </section>
-      
-      <img className="case-detail-image" src={caseStudy.heroImage} alt={project.title} />
-      
-      <section className="case-grid case-impact">
-        <div>
-          <p className="eyebrow">03 / THE IMPACT</p>
-          <h2>Clarity that<br /><em>moves people.</em></h2>
-        </div>
-        <div>
-          <p>{caseStudy.impact}</p>
-          <div className="project-links">
-            <a className="back-link" href={caseStudy.behanceLink} target="_blank" rel="noreferrer">View full case study on Behance ↗</a>
-          </div>
-        </div>
-      </section>
-    </main>
-  )
-}
+//bloque 4 eliminado
 
 // ============================================================
 // 5. COMPONENTE PRINCIPAL
@@ -188,7 +129,7 @@ export function PortfolioShell() {
   if (page === 'case' && selectedProjectId) {
     return (
       <>
-        <CaseStudy 
+        <CaseStudyRenderer
           projectId={selectedProjectId} 
           onBack={() => {
             setPage('home')
