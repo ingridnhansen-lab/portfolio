@@ -16,18 +16,26 @@ export const projectsData = {
     image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Group%2013-4RCyDrsgiNnQc5mDQGCDvs13sxADYG.png',
     type: 'Featured case study',
     title: 'Redesigning insurance for a digital-first generation.',
-    //subtitle: '',
-    description: 'A UX redesign replacing a confusing, department-based architecture with a clean, task-oriented experience. By prioritizing offline-first persistence and unified access, we empowered users to complete complex insurance tasks independently. The result is an intuitive mobile experience, accessible for all ages, significantly reducing internal friction and agent dependency.',
+    subtitle: 'A senior-friendly, task-based UI/UX architecture that turned broken user flows into a frictionless experience',
+    description: 'A senior-friendly UX redesign prioritizing offline-first and task-based navigation. Empowering users to self-serve while reducing agent dependency.',
     caseStudy: {
       heroImage: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Group%2013-4RCyDrsgiNnQc5mDQGCDvs13sxADYG.png',
       //year: '2023',
       role: 'PRODUCT DESIGN',
       team: 'PRODUCT + ENGINEERING',
       timeline: '8 WEEKS',
-      problem: `A broken app with zero visibility. 
-Triangulating Firebase, reviews, and tickets revealed critical blockers: constant login failures, zero offline document access, and a confusing internal structure that forced users to call support instead of self-serving.`,
-      decision: `We implemented a phased roadmap of "Quick Wins" alongside a new architecture. Usability testing revealed 60% of users set up the app for elderly parents. This insight pivoted our design to a simplified, task-based hierarchy accessible for all ages, cutting friction at its root.`,
-      impact: `Validated through a second usability round, results were immediate and measurable: Document downloads jumped from 60% to 100%, agent contact from 40% to 80%, and password resets from 20% to 80%. A clear, scalable foundation for future journeys.`,
+      problem: `A broken app with zero visibility.
+• Constrained team (1 developer, no documentation).
+• Critical login failures and zero offline document access.
+• Confusing internal structure forcing users to call support.`,
+      decision: `A phased roadmap of "Quick Wins" alongside a new architecture.
+• Usability testing revealed 60% of users set up the app for elderly parents.
+• Pivoted to a simplified, task-based hierarchy accessible for all ages.
+• Prioritized offline persistence and unified navigation.`,
+      impact: `Validated through a second usability round:
+• Document downloads: 60% → 100% success.
+• Agent contact: 40% → 80% success.
+• Password reset: 20% → 80% success.`,
       behanceLink: 'https://www.behance.net/gallery/250252187/From-Chaos-to-Clarity-Reverse-Engineering-an-App-2023',
     }
   },
