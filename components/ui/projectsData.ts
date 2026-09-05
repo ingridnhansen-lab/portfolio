@@ -16,7 +16,7 @@ export const projectsData = {
     image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Group%2013-4RCyDrsgiNnQc5mDQGCDvs13sxADYG.png',
     type: 'Featured case study',
     title: 'Redesigning insurance for a digital-first generation.',
-    subtitle: 'A senior-friendly, task-based UI/UX architecture that turned broken user flows into a frictionless experience',
+    //subtitle: 'A senior-friendly, task-based UI/UX architecture that turned broken user flows into a frictionless experience',
     // Descripción ultra corta para la card: enfocada en el resultado y las palabras clave SEO.
     description: 'Senior-friendly UX redesign. Offline-first and task-based navigation to empower self-service and cut agent dependency.',
     caseStudy: {
@@ -25,17 +25,17 @@ export const projectsData = {
       role: 'PRODUCT DESIGN',
       team: 'PRODUCT + ENGINEERING',
       timeline: '8 WEEKS',
-      problem: `A broken app with zero visibility.
-• Constrained team (1 developer, no documentation).
-• Critical login failures and zero offline document access.
+      problem: `A broken app with zero visibility.<br>
+• Constrained team (1 developer, no documentation).<br>
+• Critical login failures and zero offline document access.<br>
 • Confusing internal structure forcing users to call support.`,
       decision: `A phased roadmap of "Quick Wins" alongside a new architecture.
-• Usability testing revealed 60% of users set up the app for elderly parents.
-• Pivoted to a simplified, task-based hierarchy accessible for all ages.
+• Usability testing revealed 60% of users set up the app for elderly parents.<br>
+• Pivoted to a simplified, task-based hierarchy accessible for all ages.<br>
 • Prioritized offline persistence and unified navigation.`,
       impact: `Validated through a second usability round.
-• Document downloads: 60% to 100% success.
-• Agent contact: 40% to 80% success.
+• Document downloads: 60% to 100% success.<br>
+• Agent contact: 40% to 80% success.<br>
 • Password reset: 20% to 80% success.`,
       behanceLink: 'https://www.behance.net/gallery/250252187/From-Chaos-to-Clarity-Reverse-Engineering-an-App-2023',
     }
