@@ -1,8 +1,8 @@
 'use client'
 
-import { Case1 } from './cases/Case1'
-import { Case2 } from './cases/Case2'
-import { Case3 } from './cases/Case3'
+import { Case1 } from './cases/case1'
+import { Case2 } from './cases/case2'
+import { Case3 } from './cases/case3'
 
 interface CaseStudyRendererProps {
   projectId: string
@@ -11,7 +11,7 @@ interface CaseStudyRendererProps {
 
 export function CaseStudyRenderer({ projectId, onBack }: CaseStudyRendererProps) {
   switch (projectId) {
-    case 'project1': // 👈 SIEMPRE "project1", "project2", "project3"
+    case 'project1':
       return <Case1 onBack={onBack} />
     case 'project2':
       return <Case2 onBack={onBack} />
