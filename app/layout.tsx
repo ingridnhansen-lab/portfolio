@@ -5,24 +5,9 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Ingrid Hansen — Product & UX Designer',
   description: 'Diseño experiencias digitales centradas en las personas, que resuelven problemas reales y generan impacto.',
-  generator: 'v0.app',
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
+    icon: '/icon.png'
       },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
-  },
 }
 
 export const viewport: Viewport = {
